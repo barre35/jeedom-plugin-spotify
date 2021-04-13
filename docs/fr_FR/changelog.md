@@ -1,6 +1,7 @@
 ﻿# 13-04-2021
 
-- Correction problème chromecast
+- Résolution du pb de connexion chromecast suite aux dernières màj google.
+- Refactoring et amélioration de logs au niveau nodejs.
 
 # 13-04-2020
 

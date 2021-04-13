@@ -2,29 +2,29 @@ Description
 ===
 
 Plugin pour piloter vos comptes spotify connect depuis l'interface jeedom.
-Attention : Il faut un compte Spotify Premium (payant).
 
 Installation
 ===
-
-Installer Node.js v12.10.0 ou + en suivant les instructions : https://github.com/nodesource/distributions/blob/master/README.md
-(Vérifier la version avec nodejs -v)
 
 Créer son compte et vous connecter sur https://developer.spotify.com/dashboard/
  
 Créer un client-id/client-secret ("Create a client id")
 
-![step-1](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-1.png) ![step-2](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-2.png) ![step-3](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-3.png)
+![step-1](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-1.png)
 
-Editer les propriétés ("Edit settings") en ajoutant http[s]://[adresse]:[port]/index.php?v=d&m=spotify&p=spotify en fonction de votre installation jeedom, puis sauvegarder
+![step-2](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-2.png)
 
-![settings](https://barre35.github.io/jeedom-plugin-spotify/assets/images/settings.png)
+![step-3](https://barre35.github.io/jeedom-plugin-spotify/assets/images/step-3.png)
 
-Récupérer votre client-id et client-secret
+Récuoérer votre client-id et client-secret
 
 ![client-secret](https://barre35.github.io/jeedom-plugin-spotify/assets/images/client-secret.png)
 
-Depuis la page de configuration du plugin, installer les dépendances, puis coller votre 'Client Id' et votre 'Client Secret' et selectionner le protocole à utiliser pour la communication du daemon avec le plugin spotify
+Editer les propriétés ("Edit settings") en ajoutant https://[adresse]:[port]/index.php?v=d&m=spotify&p=spotify ou http://[adresse]:[port]/index.php?v=d&m=spotify&p=spotify en fonction de votre installation jeedom, puis sauvegarder
+
+![settings](https://barre35.github.io/jeedom-plugin-spotify/assets/images/settings.png)
+
+Depuis la page de configuration du plugin, installer les dépendances, puis coller votre client-id et votre client-secret et selectionner le protocole à utiliser pour la communication du daemon avec le plugin spotify
 
 ![plugin](https://barre35.github.io/jeedom-plugin-spotify/assets/images/plugin.png)
 
@@ -41,7 +41,7 @@ Ajouter un nouvel equipement pour le plugin spotify
 
 ![equipment](https://barre35.github.io/jeedom-plugin-spotify/assets/images/equipment.png)
 
-Cliquer sur le bouton tokenize, saisir votre login/password et approuver
+Cliquer sur le bouton tokenize, sasir votre login/password et approuver
 
 ![accept](https://barre35.github.io/jeedom-plugin-spotify/assets/images/accept.png) 
 
@@ -117,5 +117,5 @@ Chaque équipement dispose des commandes réparties dans les catégories suivant
 Pour aller plus loin
 ===
 
-Penser à noter le plugin sur le market et faites part de vos remarques, demandes d'évolutions et bugs sur le forum https://community.jeedom.com/tag/plugin-spotify
+Penser à noter le plugin sur le market et faites part de vos remarques, demandes d'évolutions et bugs sur le forum [https://community.jeedom.com/t/plugin-spotify/2137](https://community.jeedom.com/t/plugin-spotify/2137)
 

@@ -303,7 +303,8 @@ try {
       if( init('item_image') != '' ) {
         $item_image = init('item_image');
       } else {
-         $item_image = network::getNetworkAccess('external', 'proto:127.0.0.1:port:comp').'/plugins/spotify/ressources/spotify.png';
+         //$item_image = network::getNetworkAccess('external', 'proto:127.0.0.1:port:comp').'/plugins/spotify/ressources/spotify.png';
+         $item_image = '/plugins/spotify/ressources/spotify.png';
       }
       log::add('spotify', 'debug', '--- ITEM IMAGE '.$item_image.' ---'); 
       $cmd->checkAndUpdateCmd('item_image', $item_image);

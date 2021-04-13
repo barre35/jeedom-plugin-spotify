@@ -315,14 +315,15 @@ class spotify extends eqLogic {
           $loglevel = log::getLogLevel('spotify');
           log::add('spotify', 'debug', '--- LOG LEVEL = '.$loglevel.' ---');
       	
-    	  if( $loglevel <= 200 ) {
+    	  //if( $loglevel <= 200 ) {
             $log = log::getPathToLog('spotify_daemon');
-		  } else {
-      	    $log = '/dev/null';
-          }
+		  //} else {
+      	  //  $log = '/dev/null';
+          //}
           log::add('spotify', 'debug', '--- LOG = '.$log.' ---');
           
-	      $cmd = 'sudo nice -n 19 nodejs "/var/www/html/plugins/spotify/ressources/spotify.js" "' . $url . '" "true" "' . $protocol . '" > "' . $log . '" 2>&1 &';
+	      //$cmd = 'sudo nice -n 19 nodejs "/var/www/html/plugins/spotify/ressources/spotify.js" "' . $url . '" "true" "' . $protocol . '" > "' . $log . '" 2>&1 &';
+		  $cmd = 'sudo nice -n 19 nodejs "/var/www/html/plugins/spotify/ressources/spotify.js" "' . $url . '" "' . $loglevel . '" "' . $protocol . '" > "' . $log . '" 2>&1 &';
 		  log::add('spotify', 'debug', '--- CMD = '.$cmd.' ---');
       		
     	  $result = exec($cmd);
@@ -857,10 +858,13 @@ class spotify extends eqLogic {
                   	fwrite($socket, $c5->encode());
                   	fflush($socket);      
                   	
-                  	log::add('spotify', 'debug', '--- SPOTIFY CONECT --- END ---');
+                  	log::add('spotify', 'debug', '--- SPOTIFY CONNECT --- END ---');
                   
                   	log::add('spotify', 'debug', '--- SPOTIFY AUTH --- BEGIN ---');
                   
+                    // sp_dc=AQC8johYj4nhaBHnHSgsZvJPxhsI8NCVBAW2lLpjoPQQa2PdM7aDC67MbriH4hkemSsdlmn4aZMkaEPoEmX6PwPQQjXd4qz8hJdr0RxzBARt7A
+					// sp_key=74fecec5-1355-46ab-8650-8c7f4c18961e
+
                   	$c4 = new CastMessage();
                   	$c4->source_id = $device;
                   	$c4->receiver_id = $transportid;
@@ -886,7 +890,7 @@ class spotify extends eqLogic {
                   	log::add('spotify', 'debug', '--- SPOTIFY ERROR --- END ---');
                   
                   	$loop = -1;
-                  
+                                    
                   	throw new Exception($type[1].": erreur de connexion");
                   
                 // ==================================
@@ -899,7 +903,8 @@ class spotify extends eqLogic {
                   
                   	$api = new SpotifyWebAPI\SpotifyWebAPI();
           
-        			$api->setAccessToken($token);    
+                  $_token = $this->getAccessToken();
+        			$api->setAccessToken($_token);    
           
                   	$api->setReturnType(SpotifyWebAPI\SpotifyWebAPI::RETURN_ASSOC);
                   	$devices = $api->getMyDevices();
@@ -909,12 +914,14 @@ class spotify extends eqLogic {
                   	foreach ($devices['devices'] as $device) {
                   		log::add('spotify', 'debug', '--- ' . $name . ' ? ' . $device['id'] . ' / ' . $device['name'] . ' ---');
                       	if( $device['name'] == $name ) {
-                          	log::add('spotify', 'debug', '%%% ' . $device['id'] . ' / ' . $device['name'] . ' %%%');
+                          	log::add('spotify', 'debug', '%%% TRUE  %%% ' . $device['id'] . ' / ' . $device['name'] . ' %%%');
                           	$option = Array();
           					$option['device_ids'] = $device['id'];
                             $option['play'] = true;
                   			$api->changeMyDevice($option);
                           	break;
+                        } else {
+                          	log::add('spotify', 'debug', '%%% FALSE %%% ' . $device['id'] . ' / ' . $device['name'] . ' %%%');
                         }
                     }
                   
@@ -1070,16 +1077,25 @@ class spotify extends eqLogic {
 		curl_setopt($ch, CURLOPT_URL,            'https://open.spotify.com/get_access_token?reason=transport&productType=web_player' );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
       	curl_setopt($ch, CURLOPT_HTTPHEADER,     array(
-          'app-platform: WebPlayer',
+          //'app-platform: WebPlayer',
           'cookie: '.$cookie, 
-          'referer: https://open.spotify.com/',
-          'sec-fetch-user: ?1', 
-          'sec-fetch-mode: navigate',
-		  'sec-fetch-dest: document',
-          'sec-fetch-site: same-origin',
-          'spotify-app-version: 1584347062',
-          'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36') 
+       // 'referer: https://open.spotify.com/',
+          //'refer: https://open.spotify.com/?_gl=1*prrsxf*_gcl_aw*R0NMLjE2MTgzMjQ3ODEuQ2owS0NRandndFdEQmhEWkFSSXNBREVLd2dPMjJ5Nm05STRwUzFMQkVxaENuNFhJSUJtLVk1MXJwYllrbGlQOVdLdzIyTkxMUlY2YWtGa2FBdVR3RUFMd193Y0I.*_gcl_dc*R0NMLjE2MTgzMjQ3ODEuQ2owS0NRandndFdEQmhEWkFSSXNBREVLd2dPMjJ5Nm05STRwUzFMQkVxaENuNFhJSUJtLVk1MXJwYllrbGlQOVdLdzIyTkxMUlY2YWtGa2FBdVR3RUFMd193Y0I.',          
+       // 'sec-ch-ua: "Google Chrome";v="89", "Chromium";v="89", ";Not\"A\\Brand";v="99"',
+          //'sec-ch-ua-mobile: ?1',
+          //'sec-fetch-user: ?1', 
+       // 'sec-fetch-mode: navigate',
+          //'sec-fetch-mode: cors',
+	   // 'sec-fetch-dest: document',
+          //'sec-fetch-dest: empty',
+          //'sec-fetch-site: same-origin',
+          //'spotify-app-version: 1584347062',
+       // 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36') 
+          'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36')
         ); 
+      
+      
+
 		$result=curl_exec($ch);
   
       	log::add('spotify', 'debug', '--- COOKIE ACCESS TOKEN '.$result.' ---');   
