@@ -1,4 +1,8 @@
-﻿# 13-04-2020
+﻿# 13-04-2021
+
+- Correction problème chromecast
+
+# 13-04-2020
 
 - Correction d'un bug dans le cas de context null, 
  
