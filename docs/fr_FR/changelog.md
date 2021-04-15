@@ -1,4 +1,9 @@
-﻿# 13-04-2021
+﻿
+# 15-04-2021
+
+- Résolution d'un pb de commit sur le patch du 13-04-2021 
+
+# 13-04-2021
 
 - Résolution du pb de connexion chromecast suite aux dernières màj google.
 - Refactoring et amélioration de logs au niveau nodejs.
