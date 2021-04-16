@@ -34,8 +34,8 @@ var counter = Array();
 var configUrl = process.argv[2];
 var	level = process.argv[3];
 var protocol = process.argv[4];
-var delay = 5000;
-var count = 5;
+var delay = 1000;
+var count = 30;
 
 // ====================
 // == LOGGER LEVELS ===
@@ -82,7 +82,7 @@ function debug( fct, str) {
 // =============
 
 function info( fct, str) {
-  if( level <= INFO) log( "INFO", fct, str);
+  if( level <= INFO) log( "INFO-", fct, str);
 }
 
 // =============
@@ -90,7 +90,7 @@ function info( fct, str) {
 // =============
 
 function warning( fct, str) {
-  if( level <= WARNING) log( "WARNING", fct, str);
+  if( level <= WARNING) log( "WARN-", fct, str);
 }
 
 // =============
@@ -223,7 +223,7 @@ function playbackStateResponse( _index, data) {
 	
   	info('playbackStateResponse', '<< ' + JSON.stringify(data));
 				
-    if ( data.body['is_playing'] ) {
+    if ( data.body['is_playing'] && data.body['item'] ) {
 
       	info('playbackStateResponse','ITEM ID = '+data.body['item']['id']);
 		_item_id = data.body['item']['id']; 
@@ -402,14 +402,8 @@ function playlistResponse( _index, data) {
   
   	for ( var i = 0; i < data.body['items'].length; i++) {
 
-      	//error("DATA",JSON.stringify(data.body['items'][i]));
-      
-        _uri = data.body['items'][i]['owner']['uri'] + ':' + data.body['items'][i]['type'] + ':' + data.body['items'][i]['id'];
-                    
-      	info('playlistResponse','PLAYLIST URI (' + i + ') = '+_uri);
-        _playlist_id = _playlist_id + separator + _uri;
-      
-      	info('playlistResponse','PLAYLIST NAME (' + i + ') = '+data.body['items'][i]['name']);
+      	_uri = data.body['items'][i]['owner']['uri'] + ':' + data.body['items'][i]['type'] + ':' + data.body['items'][i]['id'];                    
+      	_playlist_id = _playlist_id + separator + _uri;
       	_playlist_name = _playlist_name + separator + data.body['items'][i]['name'];
        
         separator = '|';
@@ -493,19 +487,10 @@ function deviceResponse( _index, data) {
   
     for ( var i = 0; i < data.body['devices'].length; i++) {
 
-      	info('deviceResponse','DEVICE ID (' + i + ') = '+data.body['devices'][i]['id']);
     	_device_id = _device_id + separator + data.body['devices'][i]['id'];
-      
-      	info('deviceResponse','DEVICE IS ACTIVE (' + i + ') = '+data.body['devices'][i]['is_active']);
         _device_is_active = _device_is_active + separator + data.body['devices'][i]['is_active'];
-      	
-      	info('deviceResponse','DEVICE NAME (' + i + ') = '+data.body['devices'][i]['name']);
       	_device_name = _device_name + separator + data.body['devices'][i]['name'];
-        
-      	info('deviceResponse','DEVICE TYPE (' + i + ') = '+data.body['devices'][i]['type']);
       	_device_type = _device_type + separator + data.body['devices'][i]['type'];
-      	
-      	info('deviceResponse','DEVICE VOUME (' + i + ') = '+data.body['devices'][i]['volume_percent']);
       	_device_volume = _device_volume + separator + data.body['devices'][i]['volume_percent'];
 
         separator = '|';
@@ -687,7 +672,8 @@ function refreshTokenRequest( i ) {
 
 function spotifyLoop() {
 
-	debug('spotifyLoop','BEGIN');  
+	debug('spotifyLoop','========================================== LOOP ================================================================');  
+  	// debug('spotifyLoop','BEGIN');  
   
   	var _expire = Math.floor(new Date()/1000);
 	
@@ -698,32 +684,34 @@ function spotifyLoop() {
           	debug('spotifyLoop','CURRENT TIME (' + i + ')= '+_expire);
           	debug('spotifyLoop','EXPIRE TIME (' + i + ')= '+expire[i]);
           
-          	if( expire[i] > _expire) {
-              
-              	debug('spotifyLoop','COUNTER['+i+'] = ' + counter[i]);
-              
-              	debug('spotifyLoop','STATUS POLLING ACCOUNT ('+i+')');
-          		statusPollingRequest(i);
-              
-              	debug('spotifyLoop','DEVICE POLLING ACCOUNT ('+i+')');
-          		devicePollingRequest(i);
-              
-              	if( counter[i] == 0 ) {
-                  
-                  	debug('spotifyLoop','CONFIG POLLING ACCOUNT ('+i+')');                  
-              		playlistPollingRequest(i);
-                  
-                }
-              
-              	counter[i]++; if( counter[i] >= count ) { counter[i] = 0 }
-              
-            } else {
+          	if( expire[i] === undefined || expire[i] <= _expire) {
               
               	debug('spotifyLoop','REFRESH ACCOUNT TOKEN ('+i+')');
             	refreshTokenRequest( i );
              
             }
-          
+            
+            if( access[i] !== undefined ) {
+            
+            	/* debug('spotifyLoop','COUNTER['+i+'] = ' + counter[i]); */
+              
+            	debug('spotifyLoop','STATUS POLLING ACCOUNT ('+i+')');
+          		statusPollingRequest(i);
+              
+          		/*if( counter[i] !== undefined && counter[i] == 0 ) {
+
+            		debug('spotifyLoop','DEVICE POLLING ACCOUNT ('+i+')');
+            		devicePollingRequest(i);
+
+            		debug('spotifyLoop','CONFIG POLLING ACCOUNT ('+i+')');                  
+            		playlistPollingRequest(i);
+
+          		}
+
+          		counter[i]++; if( counter[i] >= count ) { counter[i] = 0 } */
+              
+            }
+
 		}
   	  
     } else {
@@ -732,7 +720,7 @@ function spotifyLoop() {
   	
     }
   
-  	debug('spotifyLoop','END');
+  	// debug('spotifyLoop','END');
   	
 }
 

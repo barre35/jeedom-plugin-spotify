@@ -1,16 +1,7 @@
-﻿
-# 16-04-2021
+﻿# 16-04-2021
 
-- Retentative de résolution du pb de commit sur le patch du 13-04-2021 
-
-# 15-04-2021
-
-- Résolution d'un pb de commit sur le patch du 13-04-2021 
-
-# 13-04-2021
-
-- Résolution du pb de connexion chromecast suite aux dernières màj google.
-- Refactoring et amélioration de logs au niveau nodejs.
+- Correction setCredentialsError() liées à priori à des incompatibilités suite des évolutions de l'API spotify 
+- Diminution du nombre d'appel externe à l'API spotify (toutes les secondes pour le statut et toutes les minutes pour les devices et les playlists, pas configurable pour l'instant mais ça viendra)
 
 # 13-04-2020
 
