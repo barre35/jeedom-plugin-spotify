@@ -1,3 +1,7 @@
+// ==================
+// === SPOTIFY.JS === 
+// ==================
+
 var SpotifyWebApi = require('spotify-web-api-node');
 var http = require('http');
 var https = require('https');
