@@ -697,12 +697,12 @@ function spotifyLoop() {
             
             if( access[i] !== undefined ) {
             
-            	/* debug('spotifyLoop','COUNTER['+i+'] = ' + counter[i]); */
+            	debug('spotifyLoop','COUNTER['+i+'] = ' + counter[i]);
               
             	debug('spotifyLoop','STATUS POLLING ACCOUNT ('+i+')');
           		statusPollingRequest(i);
               
-          		/*if( counter[i] !== undefined && counter[i] == 0 ) {
+          		if( counter[i] !== undefined && counter[i] == 0 ) {
 
             		debug('spotifyLoop','DEVICE POLLING ACCOUNT ('+i+')');
             		devicePollingRequest(i);
@@ -712,7 +712,7 @@ function spotifyLoop() {
 
           		}
 
-          		counter[i]++; if( counter[i] >= count ) { counter[i] = 0 } */
+          		counter[i]++; if( counter[i] >= count ) { counter[i] = 0 }
               
             }
 
