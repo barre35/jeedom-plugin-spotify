@@ -1170,14 +1170,14 @@ class spotify extends eqLogic {
   
   	/**************** Methods ****************/
 
-  	// preInsert ? Méthode appelée avant la création de votre objet
-	// postInsert ? Méthode appelée après la création de votre objet
-	// preUpdate ? Méthode appelée avant la mise à jour de votre objet
-	// postUpdate ? Méthode appelée après la mise à jour de votre objet
-	// preSave ? Méthode appelée avant la sauvegarde (création et mise à jour donc) de votre objet
-	// postSave ? Méthode appelée après la sauvegarde de votre objet
-	// preRemove ? Méthode appelée avant la suppression de votre objet
-	// postRemove ? Méthode appelée après la suppression de votre objet 
+  	// preInsert â‡’ MÃ©thode appelÃ©e avant la crÃ©ation de votre objet
+	// postInsert â‡’ MÃ©thode appelÃ©e aprÃ¨s la crÃ©ation de votre objet
+	// preUpdate â‡’ MÃ©thode appelÃ©e avant la mise Ã  jour de votre objet
+	// postUpdate â‡’ MÃ©thode appelÃ©e aprÃ¨s la mise Ã  jour de votre objet
+	// preSave â‡’ MÃ©thode appelÃ©e avant la sauvegarde (crÃ©ation et mise Ã  jour donc) de votre objet
+	// postSave â‡’ MÃ©thode appelÃ©e aprÃ¨s la sauvegarde de votre objet
+	// preRemove â‡’ MÃ©thode appelÃ©e avant la suppression de votre objet
+	// postRemove â‡’ MÃ©thode appelÃ©e aprÃ¨s la suppression de votre objet 
     
   	public function postSave() {
       

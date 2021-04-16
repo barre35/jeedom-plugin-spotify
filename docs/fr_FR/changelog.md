@@ -1,4 +1,8 @@
 ﻿
+# 16-04-2021
+
+- Retentative de résolution du pb de commit sur le patch du 13-04-2021 
+
 # 15-04-2021
 
 - Résolution d'un pb de commit sur le patch du 13-04-2021 
