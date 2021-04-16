@@ -702,10 +702,10 @@ function spotifyLoop() {
             	debug('spotifyLoop','STATUS POLLING ACCOUNT ('+i+')');
           		statusPollingRequest(i);
               
-          		if( counter[i] !== undefined && counter[i] == 0 ) {
+          		debug('spotifyLoop','DEVICE POLLING ACCOUNT ('+i+')');
+          		devicePollingRequest(i);
 
-            		debug('spotifyLoop','DEVICE POLLING ACCOUNT ('+i+')');
-            		devicePollingRequest(i);
+          		if( counter[i] !== undefined && counter[i] == 0 ) {
 
             		debug('spotifyLoop','CONFIG POLLING ACCOUNT ('+i+')');                  
             		playlistPollingRequest(i);

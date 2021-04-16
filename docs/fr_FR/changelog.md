@@ -1,7 +1,7 @@
 ﻿# 16-04-2021
 
 - Correction setCredentialsError() liées à priori à des incompatibilités suite des évolutions de l'API spotify 
-- Diminution du nombre d'appel externe à l'API spotify (toutes les secondes pour le statut et toutes les minutes pour les devices et les playlists, pas configurable pour l'instant mais ça viendra)
+- Diminution du nombre d'appel externe à l'API spotify (toutes les secondes pour le statut et devices / toutes les minutes pour les playlists, pas configurable pour l'instant mais ça viendra)
 
 # 13-04-2020
 
