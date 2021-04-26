@@ -648,7 +648,7 @@ function refreshTokenRequest( i ) {
 
     } else {
 
-    	http.get( _url, (resp) => { 
+    	https.get( _url, (resp) => { 
         
         	let data = '';
         
